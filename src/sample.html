@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://prototypejs.org/assets/2009/8/31/prototype.js"></script>
+		<script type="text/javascript" src="prototype-event-extensions.js"></script>
+		<script type="text/javascript" src="pmask.js"></script>
+		<style type="text/css">
+		    .p-mask-error {
+		        color:red;
+		    }
+            .clearfix:after, form>div:after {
+                  content: ".";
+                  display: block;
+                  height: 0;
+                  clear: both;
+                  visibility: hidden;
+            }
+		    form {
+		        position:relative;
+		        width:50em;
+		    }
+		    form>div{
+		        display:block;
+		        position:relative;
+		        width:50em;
+		    }
+		    label {
+		        display:block;
+		        width:6em;
+		        text-align:right;
+		        float:left;
+		        clear:left;
+		        margin-right: 1em;
+		    }
+		    input{
+		        display:block;
+		    }
+		    input[type='submit'] {
+		        margin-left: 10em;
+		    }
+		</style>
+	</head>
+	<body>
+        <form onsubmit="return false;" class="clearfix">
+          <div>
+            <label>ID:</label>
+            <input class="p-mask" id="my_id" name="myName" type="text" value="15357595X"
+                       alt="{type:'fixed', mask:'[99.999.999-x]',stripMask:false,stripMaskOnSubmit:true}" />
+          </div>
+          <div>
+            <label>Phone:</label>
+            <input class="p-mask" id="my_phone" name="myPhone" type="text" value="116969"
+                       alt="{type:'fixed', mask:'(99) 9999-9999',stripMask:false,stripMaskOnSubmit:false}" />
+          </div>
+          <div>
+            <label>Money:</label>
+            <input class="p-mask" id="my_money" name="myMoney" type="text" value="1238" style="text-align:right"
+                       alt="{type:'number',currencySymbol:'$',stripMask:false}" />
+          </div>
+          <div><input type="submit" value="submit" title="click to check striped value in the inputs"/>
+        </form>
+        <script type="text/javascript">new pMask();</script>
+	</body>
+</html>
