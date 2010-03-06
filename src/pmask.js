@@ -28,7 +28,7 @@ var pMask = Class.create({
         groupDigits: 3,
         decSymbol: '.',
         decDigits: 2,
-        stripMask: true,
+        stripMask: false,
         stripMaskOnSubmit: true
     },
     defOptions: {
