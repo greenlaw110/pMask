@@ -2,18 +2,19 @@ This project provides a prototype porting of "Fabio Zendhi Nagao's":http://zend.
 
 * default targetClass name changed from "iMask" to "p-mask"
 * add an new global option: errorClass, which is set to "p-mask-error" by default
-* while use type bad input, the underline input box will be added an new css class specified by errorClass option, for 1 second by default and then removed. This is to provide a default visual feedback to user that the input is not acceptable
-* add new instance option: stripMaskOnSubmit. The rational to this is usually we want to display the mask worn value in the input even the focus has left to other input. But we want to server get the cleaned data, so it comes stripMaskOnSubmit option indicate the pMask strip the mask from the input value while the form get submitted. This is automatically achieved by observing submit eventt of the form of the input element.
+* while user type bad input, the underline input box will be added an new css class specified by errorClass option, for 1 second by default and then removed. This is to provide a default visual feedback to user that the input is not acceptable
+* add new instance option: stripMaskOnSubmit. The rational to this is usually we want to display the masked value in the input even the focus has left to other input. But we want to server get the cleaned data, so it comes stripMaskOnSubmit option indicate the pMask strip the mask from the input value while the form get submitted. This is automatically achieved by observing submit eventt of the form of the input element.
 * Enter key will not trigger form submit in pMask while it will in iMask
 * Enable minus for number type masked input, press "-" will cause the value of the input be multiplied by "-1"
 * Dot "." is now a valid number character, but typing "." will do nothing as it is defined by the mask. The only reason to put the "." in the valid character list is it will not be stripped out as a part of mask.
 * Provide a default number format options {groupSymbol: ',', groupDigits: 3, decSymbol: '.',decDigits: 2,stripMask: false,stripMaskOnSubmit: true}. You just need to override the part that is different from the default value, e.g. "decDigits: 0"
 * Support currency symbol for number type. Just declare option: "currencySymbol: $" to get it
 
+*Dependencies*
 This script require prototype-1.6.1 to work properly. In addition, there is an extension to prototype-1.6.1 to help change the keyCode to key, which is provided in prototype-event-extensions.js file. Please make sure you include that file also in your html document.
 
-<h2>Sample Code</h2>
-bc. <script type="text/javascript" src="/javascript/prototype.js"></script>
+*Sample Code*
+<script type="text/javascript" src="/javascript/prototype.js"></script>
 <script type="text/javascript" src="/javascript/prototype-event-extensions.js"></script>
 <script type="text/javascript" src="/javascript/pmask.js"></script>
 <form onsubmit="return false;" class="clearfix">
