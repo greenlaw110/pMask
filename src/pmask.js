@@ -473,11 +473,15 @@ var pMask = Class.create({
 
     _formatNumber: function(obj, negative) {
         
-        // negative operation
         var str2 = this._stripMask(obj);
+        if (!str2.include('.') && obj.options.decDigits > 0) {
+            str2 = str2 + '.' + '0'.times(obj.options.decDigits);
+        }
+        
         // additional processing for "."
         str2 = str2.sub('.', '');
         var str1 = "";
+        // negative operation
         if (negative) {
             var isNeg = (str2.charAt(i) == '-')
             if (isNeg) {
