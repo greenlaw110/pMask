@@ -40,7 +40,7 @@
 		</style>
 	</head>
 	<body>
-        <form onsubmit="return false;" class="clearfix">
+        <form onsubmit="return false;" class="clearfix" id="the-form">
           <div>
             <label>ID:</label>
             <input class="p-mask" id="my_id" name="myName" type="text" value="15357595X"
@@ -51,13 +51,19 @@
             <input class="p-mask" id="my_phone" name="myPhone" type="text" value="116969"
                        alt="{type:'fixed', mask:'(99) 9999-9999',stripMask:false,stripMaskOnSubmit:false}" />
           </div>
-          <div>
+          <div id="to-be-copied">
             <label>Money:</label>
             <input class="p-mask" id="my_money" name="myMoney" type="text" value="1238" style="text-align:right"
                        alt="{type:'number',currencySymbol:'$',stripMask:false}" />
           </div>
           <div><input type="submit" value="submit" title="click to check striped value in the inputs"/>
         </form>
-        <script type="text/javascript">new pMask();</script>
+        <script type="text/javascript">
+            new pMask();
+            var dup1 = $('to-be-copied').clone(true);
+            dup1.id='dup1';
+            $('the-form').insert({top: dup1});
+            new pMask();
+        </script>
 	</body>
 </html>

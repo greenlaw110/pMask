@@ -48,55 +48,64 @@ var pMask = Class.create({
         onInvalid: Prototype.emptyFunction,
         onKeyDown: Prototype.emptyFunction
     },
+    
+    maskObject: function(obj) {
+        obj = $(obj);
+        if (!obj) return;
+        if (obj.pMasked) return;
+        obj.pMasked = true;
+        obj.options = (obj.alt).evalJSON();
+        if (!obj.options) return;
+        if(obj.options.type && obj.options.type == "number") {
+            //set default options
+            obj.options = Object.extend(this.defNumberOptions, obj.options);
+        }
+        if (obj.options.stripMask == false) {
+            obj.value = this._wearMask(obj, obj.value)
+        }
+        obj.observe("mousedown", function(event) {
+            event.stop();
+        });
+        obj.observe("mouseup", function(event) {
+            event.stop();
+            this._onMouseUp(event, obj);
+        }.bind(this));
+        obj.observe("click", function(event) {
+            event.stop();
+        });
+        obj.observe("keydown", function(event) {
+            this._onKeyDown(event, obj);
+            this.options.onKeyDown.defer(obj);
+        }.bind(this));
+        obj.observe("keypress", function(event) {
+            this._onKeyPress(event, obj);
+        }.bind(this));
+        obj.observe("focus", function(event) {
+            event.stop();
+            this._onFocus(event, obj);
+            this.options.onFocus.defer(obj);
+        }.bind(this));
+        obj.observe("blur", function(event) {
+            event.stop();
+            this._onBlur(event, obj);
+            this.options.onBlur.defer(obj);
+        }.bind(this));
+    },
 
     initialize: function(options) {
         this.options = Object.extend(Object.extend({ }, this.defOptions), options || { });
         
         var clz = "." + this.options.targetClass;
         $$(clz).each(function(obj) {
-            obj.options = (obj.alt).evalJSON();
-            if (!obj.options) return;
-            if(obj.options.type && obj.options.type == "number") {
-                //set default options
-                obj.options = Object.extend(this.defNumberOptions, obj.options);
-            }
-            if (obj.options.stripMask == false) {
-                obj.value = this._wearMask(obj, obj.value)
-            }
-            obj.observe("mousedown", function(event) {
-                event.stop();
-            });
-            obj.observe("mouseup", function(event) {
-                event.stop();
-                this._onMouseUp(event, obj);
-            }.bind(this));
-            obj.observe("click", function(event) {
-                event.stop();
-            });
-            obj.observe("keydown", function(event) {
-                this._onKeyDown(event, obj);
-                this.options.onKeyDown.defer(obj);
-            }.bind(this));
-            obj.observe("keypress", function(event) {
-                this._onKeyPress(event, obj);
-            }.bind(this));
-            obj.observe("focus", function(event) {
-                event.stop();
-                this._onFocus(event, obj);
-                this.options.onFocus.defer(obj);
-            }.bind(this));
-            obj.observe("blur", function(event) {
-                event.stop();
-                this._onBlur(event, obj);
-                this.options.onBlur.defer(obj);
-            }.bind(this));
+            this.maskObject(obj);
         }.bind(this));
         
         var e = $$(clz).first();
         if (e) {
             var f = this._getObjForm(e);
-            if (f) {
+            if (f && !f.pMasked) {
                 f.observe('submit', function(){this._stripMaskOnSubmit();}.bind(this));
+                f.pMasked = true;
             }
         }
     },
