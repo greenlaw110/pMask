@@ -1,3 +1,4 @@
+<!DOCTYPE HTML> 
 <html>
 	<head>
 		<script type="text/javascript" src="http://prototypejs.org/assets/2009/8/31/prototype.js"></script>
@@ -60,7 +61,7 @@
         </form>
         <script type="text/javascript">
             new pMask();
-            var dup1 = $('to-be-copied').clone(true);
+            var dup1 = $('to-be-copied').clone(false);
             dup1.id='dup1';
             $('the-form').insert({top: dup1});
             new pMask();
