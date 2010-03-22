@@ -54,7 +54,12 @@ var pMask = Class.create({
         if (!obj) return;
         if (obj.pMasked) return;
         obj.pMasked = true;
-        obj.options = (obj.alt).evalJSON();
+        /* try html5 data attribute first */
+        var maskAtt = obj.getAttribute("data-pMask");
+        if (maskAtt)
+            obj.options = maskAtt.evalJSON();
+        else
+            obj.options = (obj.alt).evalJSON();
         if (!obj.options) return;
         if(obj.options.type && obj.options.type == "number") {
             //set default options
