@@ -468,10 +468,36 @@ var pMask = Class.create({
                 chr = '.';
                 break;
             default:
-                chr = event.key(); // key pressed as a lowercase string //TODO
+                // chr = event.key(); // key pressed as a lowercase string //TODO
+                chr = this._getEventKey(event);
                 break;
         }
         return chr;
+    },
+    
+    _getEventKey: function(ev) {
+        var keys = $H({
+        	'enter': Event.KEY_RETURN,
+        	'up': Event.KEY_UP,
+        	'down': Event.KEY_DOWN,
+        	'left': Event.KEY_LEFT,
+        	'right': Event.KEY_RIGHT,
+        	'esc': Event.KEY_ESC,
+        	'space': 32,
+        	'backspace': Event.KEY_BACKSPACE,
+        	'tab': Event.KEY_TAB,
+        	'delete': Event.KEY_DELETE
+        });
+        
+    	if (ev.type.include('key')) {
+    		var code = ev.which || ev.keyCode;
+    		var key = keys.index(code);
+    		if (ev.type == 'keydown'){
+    			var fKey = code - 111;
+    			if (fKey > 0 && fKey < 13) key = 'f' + fKey;
+    		}
+    		return key || String.fromCharCode(code).toLowerCase();
+    	}
     },
 
     _pushNumber: function(obj, chr) {
